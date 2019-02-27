@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item
+        android:id="@+id/bar_home"
+        android:title="bar_home" />
+
+    <item
+        android:id="@+id/bar_input"
+        android:title="bar_input" />
+
+    <item
+        android:id="@+id/bar_closet"
+        android:title="bar_closet" />
+
+</menu>

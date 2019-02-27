@@ -12,6 +12,12 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        // これでBottomNavigationViewが利用可能
+
+        compile 'com.android.support:appcompat-v7:25.0.0'
+
+        // 他のdesign support libsも使いたいので以下を追加
+        compile 'com.android.support:design:25.0.0'
     }
 }
 
