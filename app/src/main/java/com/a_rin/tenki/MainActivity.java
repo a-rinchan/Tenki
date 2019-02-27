@@ -14,25 +14,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.bar_home:
-                        setFragment();
-                        return true;
-                    case R.id.bar_input:
-                        setFragment();
-                        return true;
-                    case R.id.bar_closet:
-                        setFragment();
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
+       ButtomNavigationView bnv = (ButtomNavigationView)findViewById(R.id.navigation);
+       bnv.setOnNavigationItemSelectedListener(new ButtonNavigationView.OnNavigationItemSelectedListener(){
+           @Override
+           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               switch (item.getItemId()) {
+                   case R.id.bar_home:
+                       setFragment();
+                       return true;
+                   case R.id.bar_input:
+                       setFragment();
+                       return true;
+                   case R.id.bar_closet:
+                       setFragment();
+                       return true;
+               }
+               return false;
+           }
+       }
+    })
 
 
 }

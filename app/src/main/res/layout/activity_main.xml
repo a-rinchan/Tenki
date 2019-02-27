@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <a.s.d.w.CoordinatorLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <a.s.d.w.BottomNavigationView
+        <android.support.design.widget.BottomNavigationView
             android:id="@id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/activity_menubar" />
 
-    </a.s.d.w.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>
