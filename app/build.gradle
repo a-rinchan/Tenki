@@ -25,4 +25,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+    // これでBottomNavigationViewが利用可能
+
+
+    compile 'com.android.support:appcompat-v7:28.0.0'
+
+    // 他のdesign support libsも使いたいので以下を追加
+    compile 'com.android.support:design:28.0.0'
 }
