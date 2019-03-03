@@ -33,5 +33,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:28.0.0'
 
     // 他のdesign support libsも使いたいので以下を追加
-    compile 'com.android.support:design:28.0.0'
+   compile 'com.android.support:design:28.0.0'
+
+    //freeImplementation 'com.google.firebase:firebase-ads:9.8.0'
 }
