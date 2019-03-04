@@ -16,12 +16,13 @@
             android:text="新規入力"/>
 
         //タイトル入力
+
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/input_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="洋服の名前"/>
+            android:hint="洋服の名前"
+            android:singleLine="true" />
 
         <Switch
             android:id="@+id/question1"
