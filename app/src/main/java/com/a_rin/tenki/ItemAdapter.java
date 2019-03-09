@@ -9,7 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.Query;
 
 class ItemAdapter extends ArrayAdapter<Item> {
     List<Item> mItem;
@@ -29,14 +37,16 @@ class ItemAdapter extends ArrayAdapter<Item> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+        int level = 0;
+
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.card, parent, false);
             viewHolder = new ViewHolder();
 
             viewHolder.titleTextView = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.isThickTextView = (TextView) convertView.findViewById(R.id.isThick);
-            viewHolder.hasDecoration = (TextView) convertView.findViewById(R.id.hasDecoration);
+            viewHolder.RecomendedDayTextView = (TextView) convertView.findViewById(R.id.RecomemdedDay);
+            viewHolder.WashingIndexTextView = (TextView) convertView.findViewById(R.id.WashingIndex);
 
             convertView.setTag(viewHolder);
         } else {
@@ -47,15 +57,26 @@ class ItemAdapter extends ArrayAdapter<Item> {
 
         //set data
         viewHolder.titleTextView.setText(item.title);
-        viewHolder.isThickTextView.setText("今日");
-        viewHolder.hasDecoration.setText("100%");
+
+        if (item.isThick)
+            level++;
+        if(item.hasDecoration)
+            level++;
+        //ここから下に条件文書こうとしてる
+
+
+        viewHolder.WashingIndexTextView.setText("100%");
+
+        viewHolder.RecomendedDayTextView.setText("今日");
+
 
         return convertView;
     }
 
     class ViewHolder{
         TextView titleTextView;
-        TextView isThickTextView;
-        TextView hasDecoration;
+        TextView RecomendedDayTextView;
+        TextView WashingIndexTextView;
     }
+    
 }

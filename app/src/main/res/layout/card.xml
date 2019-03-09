@@ -14,12 +14,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/isThick"
+            android:id="@+id/RecomemdedDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/hasDecoration"
+            android:id="@+id/WashingIndex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

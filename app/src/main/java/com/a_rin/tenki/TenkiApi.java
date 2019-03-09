@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,8 +14,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TenkiApi extends AsyncTask<URL, Void, String> {
+public class TenkiApi extends AsyncTask<URL, Void, List<String>>{
 
     private int TODAY_FORCAST_INDEX = 0;
     private Activity mainActivity;
@@ -30,7 +33,7 @@ public class TenkiApi extends AsyncTask<URL, Void, String> {
      * @return 取得した天気情報
      */
     @Override
-    protected String doInBackground(URL... urls) {
+    protected List<String> doInBackground(URL... urls) {
 
         final URL url = urls[0];
         HttpURLConnection con = null;
@@ -66,11 +69,19 @@ public class TenkiApi extends AsyncTask<URL, Void, String> {
             inReader.close();
             in.close();
 
-            // 受け取ったJSON文字列をパース
-            JSONObject jsonObject = new JSONObject(response.toString());
-            JSONObject todayForcasts = jsonObject.getJSONArray("forecasts").getJSONObject(TODAY_FORCAST_INDEX);
 
-            return todayForcasts.getString("dateLabel") + "の天気は " + todayForcasts.getString("telop");
+            // 受け取ったJSON文字列をパース
+            ArrayList<String> objects = new ArrayList<>();
+            JSONArray jsonArray = new JSONObject(response.toString()).getJSONArray("list");
+            for(int i = 0; i < jsonArray.length(); i++){
+                String dtString = jsonArray.getJSONObject(i).getString("dt_txt");
+                if(dtString.indexOf("12:00:00") > 0){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONArray("weather").getJSONObject(0);
+                    objects.add(jsonObject.getString("main"));
+                }
+            }
+
+            return objects;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -84,9 +95,33 @@ public class TenkiApi extends AsyncTask<URL, Void, String> {
         }
     }
 
-    protected void onPostExecute(String result) {
-        TextView tv = mainActivity.findViewById(R.id.messageTextView);
-        tv.setText(result);
+    //ここに天気に合わせてお天気画像返す、条件書く
+    protected void onPostExecute(List<String> result) {
+
+        if (result.get(0).equals("Rain")){
+            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(0).equals("Clouds")) {
+            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.cloudy);
+        }else{
+            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.sunny);
+        }
+
+        if (result.get(1).equals("Rain")){
+            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(1).equals("Clouds")){
+            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.cloudy);
+        }else{
+            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.sunny);
+        }
+
+        if (result.get(2).equals("Rain")){
+            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(2).equals("Clouds")){
+            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.cloudy);
+        }else{
+            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.sunny);
+        }
+
     }
 
 }

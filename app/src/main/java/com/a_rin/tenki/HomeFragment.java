@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -15,17 +16,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class HomeFragment extends Fragment {
     ItemAdapter itemAdapter;
     ListView listView;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup conttainer, Bundle bundle) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         //第二引数のcontainerはFragmentのレイアウトが挿入される親のViewgroupのこと
         //第三引数のBundleはフラグメントが再開された場合にフラグメント前のインスタンスに関する情報を提供する
 
         //FragmentのサブクラスであるHomeFragmentがfragment_home.xmlファイルからレイアウトを読み込む
-        View v = inflater.inflate(R.layout.fragment_home, conttainer, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         //inflate()は三つの引数を受け取る
         //第一引数レイアウトのリソースID
         //第二引数inflateされた親のViewGroup
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
 
             // 非同期処理(AsyncHttpRequest#doInBackground())を呼び出す
             try {
-                new TenkiApi(getActivity()).execute(new URL("http://weather.livedoor.com/forecast/webservice/json/v1?city=270000"));
+                new TenkiApi(getActivity()).execute(new URL("https://api.openweathermap.org/data/2.5/forecast?q=tokyo,jp&units=metric&lang=ja&appid=c5c383b509e6de81f869dd20323ecf80"));
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -72,6 +74,15 @@ public class HomeFragment extends Fragment {
 
         return items;
     }
+
+    /*public class Level {
+        Item item;
+        int level;
+
+        if(item.isThick)
+    }*/
+
+
 
 
 }
