@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -18,9 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded {
     ItemAdapter itemAdapter;
     ListView listView;
+
+    ImageView today;
+    ImageView tomorrow;
+    ImageView aftertomorrow;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         //第二引数のcontainerはFragmentのレイアウトが挿入される親のViewgroupのこと
@@ -33,6 +38,9 @@ public class HomeFragment extends Fragment {
         //第二引数inflateされた親のViewGroup
         //第三引数インフレート中にインフレートされたレイアウトを第二引数のViewGroupにアタッチするべきか示すブール値
 
+        today = (ImageView) v.findViewById(R.id.today);
+        tomorrow = (ImageView) v.findViewById(R.id.tomorrow);
+        aftertomorrow = (ImageView) v.findViewById(R.id.aftertomorrow);
 
         listView = (ListView) v.findViewById(R.id.listView);
         //リストがクリックされた時にDetailに移動するためにIntentする
@@ -49,13 +57,13 @@ public class HomeFragment extends Fragment {
 
         itemAdapter = new ItemAdapter(getContext(), 0, new ArrayList<Item>());
         //listのデータをAdapterに渡す
-        listView.setAdapter((ListAdapter) itemAdapter);
+        listView.setAdapter(itemAdapter);
 
         itemAdapter.addAll(getSampleData());
 
             // 非同期処理(AsyncHttpRequest#doInBackground())を呼び出す
             try {
-                new TenkiApi(getActivity()).execute(new URL("https://api.openweathermap.org/data/2.5/forecast?q=tokyo,jp&units=metric&lang=ja&appid=c5c383b509e6de81f869dd20323ecf80"));
+                new TenkiApi(this).execute(new URL("https://api.openweathermap.org/data/2.5/forecast?q=tokyo,jp&units=metric&lang=ja&appid=c5c383b509e6de81f869dd20323ecf80"));
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -73,6 +81,36 @@ public class HomeFragment extends Fragment {
         items.add(new Item("タイトル4",true,false));
 
         return items;
+    }
+
+    @Override
+    public void onGetWeather(List<String> result) {
+
+        itemAdapter.setWeathers(result);
+
+        if (result.get(0).equals("Rain")){
+            today.setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(0).equals("Clouds")) {
+            today.setBackgroundResource(R.drawable.cloudy);
+        }else{
+            today.setBackgroundResource(R.drawable.sunny);
+        }
+
+        if (result.get(1).equals("Rain")){
+            tomorrow.setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(1).equals("Clouds")){
+            tomorrow.setBackgroundResource(R.drawable.cloudy);
+        }else{
+            tomorrow.setBackgroundResource(R.drawable.sunny);
+        }
+
+        if (result.get(2).equals("Rain")){
+            aftertomorrow.setBackgroundResource(R.drawable.rainy);
+        } else if(result.get(2).equals("Clouds")){
+            aftertomorrow.setBackgroundResource(R.drawable.cloudy);
+        }else{
+            aftertomorrow.setBackgroundResource(R.drawable.sunny);
+        }
     }
 
     /*public class Level {

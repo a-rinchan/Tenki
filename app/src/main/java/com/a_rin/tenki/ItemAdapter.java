@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.RestAdapter;
@@ -22,9 +23,12 @@ import retrofit.http.Query;
 class ItemAdapter extends ArrayAdapter<Item> {
     List<Item> mItem;
 
+    List<String> weathers;
+
     public ItemAdapter(Context context,int layoutResourcedID, List<Item> objects){
         super(context,layoutResourcedID,objects);
         mItem = objects;
+        weathers = new ArrayList<>();
     }
 
     public int getCount(){
@@ -64,13 +68,26 @@ class ItemAdapter extends ArrayAdapter<Item> {
             level++;
         //ここから下に条件文書こうとしてる
 
+        // 天気がロードできるまで待つ
+        if(weathers.isEmpty()){
+            return convertView;
+        }
 
-        viewHolder.WashingIndexTextView.setText("100%");
-
-        viewHolder.RecomendedDayTextView.setText("今日");
+        if(weathers.get(0).equals("Clear")){
+            viewHolder.WashingIndexTextView.setText("100%");
+            viewHolder.RecomendedDayTextView.setText("明日");
+        } else {
+            viewHolder.WashingIndexTextView.setText("10%");
+            viewHolder.RecomendedDayTextView.setText("明日");
+        }
 
 
         return convertView;
+    }
+
+    public void setWeathers(List<String> weathers) {
+        this.weathers = weathers;
+        notifyDataSetChanged();
     }
 
     class ViewHolder{
