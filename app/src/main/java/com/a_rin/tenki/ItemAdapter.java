@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.RestAdapter;
@@ -21,10 +22,13 @@ import retrofit.http.Query;
 
 class ItemAdapter extends ArrayAdapter<Item> {
     List<Item> mItem;
+    List<String> weathers;
+
 
     public ItemAdapter(Context context,int layoutResourcedID, List<Item> objects){
         super(context,layoutResourcedID,objects);
         mItem = objects;
+        weathers = new ArrayList<>();
     }
 
     public int getCount(){
@@ -35,9 +39,17 @@ class ItemAdapter extends ArrayAdapter<Item> {
         return mItem.get(position);
     }
 
+    /*public  int level(boolean isThick,boolean hasDecoration){
+        int level = 0;
+        if(isThick == true)
+            level++;
+        if(hasDecoration == true)
+            level++;
+        return level;
+    }*/
+
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
-        int level = 0;
 
 
         if (convertView == null) {
@@ -55,22 +67,39 @@ class ItemAdapter extends ArrayAdapter<Item> {
 
         Item item = getItem(position);
 
+     //  int level = level(item.isThick,item.hasDecoration);
+
         //set data
         viewHolder.titleTextView.setText(item.title);
 
-        if (item.isThick)
-            level++;
-        if(item.hasDecoration)
-            level++;
         //ここから下に条件文書こうとしてる
 
+        //天気がロードできるまで待つ
+        if(weathers.isEmpty()){
+            return convertView;
+        }
 
-        viewHolder.WashingIndexTextView.setText("100%");
-
-        viewHolder.RecomendedDayTextView.setText("今日");
-
+        if(weathers.get(0).equals("Rain")){
+            viewHolder.WashingIndexTextView.setText("20%");
+            if (weathers.get(1).equals("Rain")){
+                viewHolder.RecomendedDayTextView.setText("明後日");
+            }else{
+                viewHolder.RecomendedDayTextView.setText("明日");
+            }
+        }else if (weathers.get(0).equals("Clouds")){
+            viewHolder.WashingIndexTextView.setText("40%");
+            viewHolder.RecomendedDayTextView.setText("今日");
+        }else{
+            viewHolder.WashingIndexTextView.setText("80%");
+            viewHolder.RecomendedDayTextView.setText("今日");
+        }
 
         return convertView;
+    }
+
+    public void setWeathers(List<String> weathers){
+        this.weathers = weathers;
+        notifyDataSetChanged();
     }
 
     class ViewHolder{
@@ -78,5 +107,5 @@ class ItemAdapter extends ArrayAdapter<Item> {
         TextView RecomendedDayTextView;
         TextView WashingIndexTextView;
     }
-    
+
 }

@@ -20,9 +20,9 @@ import java.util.List;
 public class TenkiApi extends AsyncTask<URL, Void, List<String>>{
 
     private int TODAY_FORCAST_INDEX = 0;
-    private Activity mainActivity;
+    private OnPostEnded mainActivity;
 
-    public TenkiApi(Activity activity) {
+    public TenkiApi(OnPostEnded activity) {
         // 呼び出し元のアクティビティ
         this.mainActivity = activity;
     }
@@ -97,31 +97,11 @@ public class TenkiApi extends AsyncTask<URL, Void, List<String>>{
 
     //ここに天気に合わせてお天気画像返す、条件書く
     protected void onPostExecute(List<String> result) {
-
-        if (result.get(0).equals("Rain")){
-            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.rainy);
-        } else if(result.get(0).equals("Clouds")) {
-            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.cloudy);
-        }else{
-            mainActivity.findViewById(R.id.today).setBackgroundResource(R.drawable.sunny);
-        }
-
-        if (result.get(1).equals("Rain")){
-            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.rainy);
-        } else if(result.get(1).equals("Clouds")){
-            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.cloudy);
-        }else{
-            mainActivity.findViewById(R.id.tomorrow).setBackgroundResource(R.drawable.sunny);
-        }
-
-        if (result.get(2).equals("Rain")){
-            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.rainy);
-        } else if(result.get(2).equals("Clouds")){
-            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.cloudy);
-        }else{
-            mainActivity.findViewById(R.id.aftertomorrow).setBackgroundResource(R.drawable.sunny);
-        }
+        mainActivity.onGetWeather(result);
 
     }
 
+    interface OnPostEnded{
+        void onGetWeather(List<String> result);
+    }
 }
