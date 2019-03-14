@@ -37,7 +37,8 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -18,7 +21,9 @@ public class InputFragment extends Fragment {
     //EditText hasDecoration;
     SharedPreferences pref;
 
-   // OnClickListener _clickListener;
+   OnClickListener _clickListener;
+
+    int level = 0;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         View v = inflater.inflate(R.layout.activity_input, container, false);
@@ -33,21 +38,33 @@ public class InputFragment extends Fragment {
         titleEditText.setText(pref.getString("key_title",""));
 
         //question1 Switch
-       /* Switch s = (Switch)findViewById(R.id.question1);
-        if(s != null){
-            s.setOnCheckedChangeListener(this);
-        }
-        public void OnCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked) {
-                int level = 0;
-                level++;
-            }
+       Switch s1 = (Switch)v.findViewById(R.id.question1);
+       /* if(s1 != null){
+            s1.setOnCheckedChangeListener(this);
         }*/
+        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+              if(isChecked)
+                  level++;
+            }
+        });
 
+        //question2 Switch
+        Switch s2 = (Switch)v.findViewById(R.id.question2);
+        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    level++;
+            }
+        });
+
+        //保存ボタンが押されたとき
        button.setOnClickListener(new View.OnClickListener(){
            @Override
            public void onClick(View v){
-             //  _clickListener.onClick();
+              _clickListener.onClick();
 
                String titleText = titleEditText.getText().toString();
 
@@ -61,7 +78,8 @@ public class InputFragment extends Fragment {
         return v;
     }
 
-    /*@Override
+    //FragmentをActivityに追加する際に呼ばれるメソッド
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
@@ -69,7 +87,7 @@ public class InputFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString() + "must implement OnArticleSelectedListener.");
         }
-    }*/
+    }
 
    public interface OnClickListener{
         void onClick();
