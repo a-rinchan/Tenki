@@ -23,33 +23,28 @@ import retrofit.http.Query;
 class ItemAdapter extends ArrayAdapter<Item> {
     List<Item> mItem;
     List<String> weathers;
+    int wearlevel = 0;
 
 
-    public ItemAdapter(Context context,int layoutResourcedID, List<Item> objects){
-        super(context,layoutResourcedID,objects);
+    public ItemAdapter(Context context, int layoutResourcedID, List<Item> objects) {
+        super(context, layoutResourcedID, objects);
         mItem = objects;
         weathers = new ArrayList<>();
     }
 
-    public int getCount(){
+    public int getCount() {
         return mItem.size();
     }
 
-    public Item getItem(int position){
+    public Item getItem(int position) {
         return mItem.get(position);
     }
 
-    /*public  int level(boolean isThick,boolean hasDecoration){
-        int level = 0;
-        if(isThick == true)
-            level++;
-        if(hasDecoration == true)
-            level++;
-        return level;
-    }*/
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+        //リストの一項目が読み込まれるたびにwearlevelは初期化される
+        wearlevel = 0;
 
 
         if (convertView == null) {
@@ -67,7 +62,8 @@ class ItemAdapter extends ArrayAdapter<Item> {
 
         Item item = getItem(position);
 
-     //  int level = level(item.isThick,item.hasDecoration);
+        wearlevel = level(item.isThick, item.hasDecoration);
+        System.out.println("title" + item.title + "wearlevel:" + wearlevel + "isThick" + item.isThick + "hasDecoration" + item.hasDecoration);
 
         //set data
         viewHolder.titleTextView.setText(item.title);
@@ -75,37 +71,53 @@ class ItemAdapter extends ArrayAdapter<Item> {
         //ここから下に条件文書こうとしてる
 
         //天気がロードできるまで待つ
-        if(weathers.isEmpty()){
+        if (weathers.isEmpty()) {
             return convertView;
         }
 
-        if(weathers.get(0).equals("Rain")){
-            viewHolder.WashingIndexTextView.setText("20%");
-            if (weathers.get(1).equals("Rain")){
+        if (weathers.get(0).equals("Rain")) {
+            viewHolder.WashingIndexTextView.setText("0%");
+            if (weathers.get(1).equals("Rain")) {
                 viewHolder.RecomendedDayTextView.setText("明後日");
-            }else{
+            } else {
                 viewHolder.RecomendedDayTextView.setText("明日");
             }
-        }else if (weathers.get(0).equals("Clouds")){
-            viewHolder.WashingIndexTextView.setText("40%");
+        } else if (weathers.get(0).equals("Clouds")) {
+            if (wearlevel == 0)
+                viewHolder.WashingIndexTextView.setText("60%");
+            if (wearlevel == 1)
+                viewHolder.WashingIndexTextView.setText("50%");
+            if (wearlevel == 2)
+                viewHolder.WashingIndexTextView.setText("40%");
             viewHolder.RecomendedDayTextView.setText("今日");
-        }else{
-            viewHolder.WashingIndexTextView.setText("80%");
+        } else {
+            if (wearlevel == 0 || wearlevel == 1)
+                viewHolder.WashingIndexTextView.setText("100%");
+            if (wearlevel == 2)
+                viewHolder.WashingIndexTextView.setText("80%");
             viewHolder.RecomendedDayTextView.setText("今日");
         }
 
         return convertView;
     }
 
-    public void setWeathers(List<String> weathers){
+    public void setWeathers(List<String> weathers) {
         this.weathers = weathers;
         notifyDataSetChanged();
     }
 
-    class ViewHolder{
+    class ViewHolder {
         TextView titleTextView;
         TextView RecomendedDayTextView;
         TextView WashingIndexTextView;
+    }
+
+    public int level(boolean isThick, boolean hasDecoration) {
+        if (isThick)
+            wearlevel++;
+        if (hasDecoration)
+            wearlevel++;
+        return wearlevel;
     }
 
 }

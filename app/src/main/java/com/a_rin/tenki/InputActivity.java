@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class InputActivity extends AppCompatActivity implements InputFragment.OnClickListener{
+public class InputActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -18,7 +18,4 @@ public class InputActivity extends AppCompatActivity implements InputFragment.On
 
     }
 
-    public void onClick(){
-        Toast.makeText(this,"保存されました！",Toast.LENGTH_SHORT).show();
-    }
 }

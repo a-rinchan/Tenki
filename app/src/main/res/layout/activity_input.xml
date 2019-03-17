@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8cdff2">
@@ -7,7 +8,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="130dp"
+        android:paddingLeft="150dp"
+        android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="新規入力"
         android:textSize="24sp" />
@@ -17,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
@@ -40,7 +42,7 @@
             android:id="@+id/question1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:paddingBottom="30dp"
             android:text="厚手の服ですか？"
             android:textSize="18sp" />
 
@@ -48,9 +50,16 @@
             android:id="@+id/question2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:paddingBottom="30dp"
             android:text="フードなど、装飾品はついていますか"
             android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/input_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="メモ"
+            android:paddingBottom="20dp"/>
 
     </LinearLayout>
 
@@ -60,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="320dp"
         android:background="#ffffff"
-        android:text="保存" />
+        android:text="保存"
+        android:textSize="18sp" />
 </RelativeLayout>

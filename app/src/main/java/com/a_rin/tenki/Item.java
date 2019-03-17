@@ -1,6 +1,8 @@
 package com.a_rin.tenki;
 
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,11 +12,13 @@ public class Item implements Serializable {
     String title;
     boolean isThick;
     boolean hasDecoration;
+    String content;
 
-    Item(String title,boolean isThick,boolean hasDecoration){
+    Item(String title,boolean isThick,boolean hasDecoration,String content){
         this.title = title;
-        this.isThick = false;
-        this.hasDecoration = false;
+        this.isThick = isThick;
+        this.hasDecoration = hasDecoration;
+        this.content = content;
     }
 
 }

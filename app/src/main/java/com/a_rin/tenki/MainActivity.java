@@ -14,11 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements InputFragment.OnClickListener {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        setFragment(new HomeFragment());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,5 +65,11 @@ public class MainActivity extends AppCompatActivity  {
         //実際に表示
         ft.commit();
     }
+
+    @Override
+    public void onClick(){
+        Toast.makeText(this,"保存されました！",Toast.LENGTH_SHORT).show();
+    }
+
 
 }

@@ -16,8 +16,8 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
+        android:background="@android:color/white"
+        app:itemIconTint="@color/colorGray"
+        app:itemTextColor="@color/colorGray"
         app:menu="@menu/activity_menubar" />
 </LinearLayout>

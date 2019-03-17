@@ -17,48 +17,31 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class InputFragment extends Fragment {
     EditText titleEditText;
-    //EditText isThickEditText;
-    //EditText hasDecoration;
+    Switch isThickBoolean;
+    Switch hasDecorationBoolean;
+    EditText contentEditText;
     SharedPreferences pref;
 
    OnClickListener _clickListener;
 
-    int level = 0;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         View v = inflater.inflate(R.layout.activity_input, container, false);
 
         //titleの入力処理
         final EditText titleEditText = (EditText)v.findViewById(R.id.input_title);
+        final Switch isThickBoolean = (Switch)v.findViewById(R.id.question1);
+        final Switch hasDecorationBoolean = (Switch) v.findViewById(R.id.question2);
+        final EditText contentEditText = (EditText)v.findViewById(R.id.input_content);
 
         Button button = (Button)v.findViewById(R.id.save);
 
-        pref = this.getActivity().getSharedPreferences("pref_title",MODE_PRIVATE);
+        //倉庫名を指定してsharedpreferencesの初期化を行う
+        pref = this.getActivity().getSharedPreferences("pref_input",MODE_PRIVATE);
 
+        //起動時にsharedpreferencesに保存されている内容を表示
         titleEditText.setText(pref.getString("key_title",""));
-
-        //question1 Switch
-       Switch s1 = (Switch)v.findViewById(R.id.question1);
-       /* if(s1 != null){
-            s1.setOnCheckedChangeListener(this);
-        }*/
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-              if(isChecked)
-                  level++;
-            }
-        });
-
-        //question2 Switch
-        Switch s2 = (Switch)v.findViewById(R.id.question2);
-        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    level++;
-            }
-        });
+        contentEditText.setText(pref.getString("key_content",""));
 
         //保存ボタンが押されたとき
        button.setOnClickListener(new View.OnClickListener(){
@@ -67,9 +50,13 @@ public class InputFragment extends Fragment {
               _clickListener.onClick();
 
                String titleText = titleEditText.getText().toString();
+               String contentText = contentEditText.getText().toString();
 
                SharedPreferences.Editor editor = pref.edit();
                editor.putString("key_title",titleText);
+               editor.putBoolean("key_isThick",false);
+               editor.putBoolean("key_hasDecoration",false);
+               editor.putString("key_content",contentText);
                editor.commit();
 
                getActivity().finish();
