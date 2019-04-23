@@ -21,6 +21,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements InputFragment.OnClickListener {
 
+    HomeFragment homeFragment;
+    InputFragment inputFragment;
+    ClosetFragment closetFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -28,8 +31,11 @@ public class MainActivity extends AppCompatActivity implements InputFragment.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        homeFragment = new HomeFragment();
+        inputFragment = new InputFragment();
+        closetFragment = new ClosetFragment();
 
-        setFragment(new HomeFragment());
+        setFragment(homeFragment);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,19 +44,18 @@ public class MainActivity extends AppCompatActivity implements InputFragment.OnC
 
                 switch (item.getItemId()) {
                     case R.id.bar_home:
-                        setFragment(new HomeFragment());
+                        setFragment(homeFragment);
                         break;
                     case R.id.bar_input:
-                        setFragment(new InputFragment());
+                        setFragment(inputFragment);
                         break;
                     case R.id.bar_closet:
-                        setFragment(new ClosetFragment());
+                        setFragment(closetFragment);
                         break;
                 }
                 return false;
             }
         });
-
     }
 
 
@@ -67,8 +72,14 @@ public class MainActivity extends AppCompatActivity implements InputFragment.OnC
     }
 
     @Override
-    public void onClick(){
+    public void onClick(Item item){
         Toast.makeText(this,"保存されました！",Toast.LENGTH_SHORT).show();
+
+        // データを追加する
+        //homeFragment.addItem(item);
+
+
+        setFragment(homeFragment);
     }
 
 

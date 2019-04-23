@@ -13,6 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class InputFragment extends Fragment {
@@ -28,6 +33,8 @@ public class InputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         View v = inflater.inflate(R.layout.activity_input, container, false);
 
+
+
         //titleの入力処理
         final EditText titleEditText = (EditText)v.findViewById(R.id.input_title);
         final Switch isThickBoolean = (Switch)v.findViewById(R.id.question1);
@@ -39,27 +46,36 @@ public class InputFragment extends Fragment {
         //倉庫名を指定してsharedpreferencesの初期化を行う
         pref = this.getActivity().getSharedPreferences("pref_input",MODE_PRIVATE);
 
-        //起動時にsharedpreferencesに保存されている内容を表示
-        titleEditText.setText(pref.getString("key_title",""));
-        contentEditText.setText(pref.getString("key_content",""));
-
         //保存ボタンが押されたとき
        button.setOnClickListener(new View.OnClickListener(){
            @Override
            public void onClick(View v){
-              _clickListener.onClick();
+               //読み込み
+               ArrayList<Item> arrayList;
+               SharedPreferences pref = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
+               Gson gson = new Gson();
+               String json = pref.getString("data", "[]");
+               if(json.equals("[]"))
+               {
+                   arrayList = new ArrayList<>();
+               } else {
+                   arrayList = gson.fromJson(json, new TypeToken<ArrayList<Item>>(){}.getType());
+               }
 
                String titleText = titleEditText.getText().toString();
                String contentText = contentEditText.getText().toString();
+               Boolean isThick = isThickBoolean.isChecked();
+               Boolean hasDecoration = hasDecorationBoolean.isChecked();
 
-               SharedPreferences.Editor editor = pref.edit();
-               editor.putString("key_title",titleText);
-               editor.putBoolean("key_isThick",false);
-               editor.putBoolean("key_hasDecoration",false);
-               editor.putString("key_content",contentText);
-               editor.commit();
+               Item item = new Item(titleText, isThick, hasDecoration, contentText);
 
-               getActivity().finish();
+               arrayList.add(item);
+
+               //書き込み
+               pref.edit().putString("data", gson.toJson(arrayList)).apply();
+
+               _clickListener.onClick(item);
+
            }
        });
         return v;
@@ -77,6 +93,6 @@ public class InputFragment extends Fragment {
     }
 
    public interface OnClickListener{
-        void onClick();
+        void onClick(Item item);
    }
 }

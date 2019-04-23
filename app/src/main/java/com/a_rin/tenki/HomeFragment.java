@@ -1,6 +1,7 @@
 package com.a_rin.tenki;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,11 +16,16 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
     ItemAdapter itemAdapter;
@@ -65,6 +71,8 @@ public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
         itemAdapter.addAll(getSampleData());
 
 
+
+
             // 非同期処理(AsyncHttpRequest#doInBackground())を呼び出す
             try {
                 new TenkiApi(this).execute(new URL("https://api.openweathermap.org/data/2.5/forecast?q=tokyo,jp&units=metric&lang=ja&appid=c5c383b509e6de81f869dd20323ecf80"));
@@ -89,6 +97,16 @@ public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
         items.add(new Item("黒タートル",false,false,""));
         items.add(new Item("スキニージーンズ",true,false,""));
         items.add(new Item("台形スカート",false,false,"2018 Spring"));
+
+        //ArrayList<Item> arrayList;
+        SharedPreferences pref = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString("data", "[]");
+        if(json.equals("[]")) {
+            // nothing
+        } else {
+            items.addAll((List<Item>)gson.fromJson(json, new TypeToken<ArrayList<Item>>(){}.getType()));
+        }
 
         return items;
     }

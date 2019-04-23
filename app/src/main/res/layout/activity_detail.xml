@@ -13,7 +13,9 @@
         android:background="#ffffff"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/detail_title"
@@ -46,5 +48,14 @@
             android:textColor="#808080"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="250dp"
+        android:onClick="remove"
+        android:text="削除" />
 
 </RelativeLayout>

@@ -4,16 +4,80 @@
     android:layout_height="match_parent"
     android:background="#8cdff2">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="10dp"
-        android:text="クローゼット"
-        android:textColor="#808080"
-        android:textSize="24sp" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/eri" />
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/thiadoskirt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/trenchi" />
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/vneck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/wanpi" />
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/jeans" />
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

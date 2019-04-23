@@ -37,4 +37,6 @@ dependencies {
 
     //freeImplementation 'com.google.firebase:firebase-ads:9.8.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

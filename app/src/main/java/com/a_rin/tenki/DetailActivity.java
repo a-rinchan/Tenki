@@ -1,5 +1,6 @@
 package com.a_rin.tenki;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -7,11 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
 public class DetailActivity extends AppCompatActivity {
 
     Item item;
     TextView title;
     TextView content;
+    SharedPreferences pref;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -20,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         title = (TextView)findViewById(R.id.detail_title);
         content = (TextView)findViewById(R.id.content);
 
+
         //前の画面からデータを取得する
         item = (Item) getIntent().getSerializableExtra("item");
 
@@ -27,7 +35,6 @@ public class DetailActivity extends AppCompatActivity {
         //前文でItemから受け取ったデータをitemに入れて情報は持ってるから、ViewにsetTextして表示する
         title.setText(item.title);
         content.setText(item.content);
-
 
         //アクションバーに戻る機能をつける
         if (getSupportActionBar() != null) {
@@ -47,6 +54,11 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //データ削除ボタン
+    public void remove(View v){
+        
     }
 
 }

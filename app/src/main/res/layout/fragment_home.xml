@@ -96,11 +96,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:background="#ffffff"
-            android:text="洋服名　                                          おすすめ洗濯日　　洗濯指数"
-            android:textSize="12dp"/>
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="洋服名　                                     おすすめ洗濯日　洗濯指数"
+            android:textSize="14sp" />
 
         <ListView
             android:id="@+id/listView"

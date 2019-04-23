@@ -15,8 +15,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:paddingLeft="5dp"
-            android:text="タイトル" />
+            android:paddingLeft="8dp"
+            android:text="タイトル"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/RecomemdedDay"
@@ -27,7 +28,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="今日" />
+            android:text="今日"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/WashingIndex"
@@ -38,7 +40,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="100%" />
+            android:text="100%"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </RelativeLayout>
