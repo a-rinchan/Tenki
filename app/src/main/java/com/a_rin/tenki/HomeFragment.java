@@ -70,9 +70,6 @@ public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
 
         itemAdapter.addAll(getSampleData());
 
-
-
-
             // 非同期処理(AsyncHttpRequest#doInBackground())を呼び出す
             try {
                 new TenkiApi(this).execute(new URL("https://api.openweathermap.org/data/2.5/forecast?q=tokyo,jp&units=metric&lang=ja&appid=c5c383b509e6de81f869dd20323ecf80"));
@@ -87,16 +84,16 @@ public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
     public List<Item> getSampleData() {
         List<Item> items = new ArrayList<>();
 
-        items.add(new Item("衿レースブラウス",false,true,"2019.03 \nParavion"));
-        items.add(new Item("ティアードスカート",false,false,"2019.01 \nHeather"));
-        items.add(new Item("バルーントレンチコート",true,true,"Rili Shopping"));
-        items.add(new Item("白のvネックニット",true,true,"2018 Winter"));
-        items.add(new Item("ワンピース",false,true,"2018.08\nParavion"));
-        items.add(new Item("クルーネックニットピンク",true,false,"2018.01"));
-        items.add(new Item("アニマル柄スカート",true,true,"who is chico"));
-        items.add(new Item("黒タートル",false,false,""));
-        items.add(new Item("スキニージーンズ",true,false,""));
-        items.add(new Item("台形スカート",false,false,"2018 Spring"));
+//        items.add(new Item("衿レースブラウス",false,true,"2019.03 \nParavion"));
+//        items.add(new Item("ティアードスカート",false,false,"2019.01 \nHeather"));
+//        items.add(new Item("バルーントレンチコート",true,true,"Rili Shopping"));
+//        items.add(new Item("白のvネックニット",true,true,"2018 Winter"));
+//        items.add(new Item("ワンピース",false,true,"2018.08\nParavion"));
+//        items.add(new Item("クルーネックニットピンク",true,false,"2018.01"));
+//        items.add(new Item("アニマル柄スカート",true,true,"who is chico"));
+//        items.add(new Item("黒タートル",false,false,""));
+//        items.add(new Item("スキニージーンズ",true,false,""));
+//        items.add(new Item("台形スカート",false,false,"2018 Spring"));
 
         //ArrayList<Item> arrayList;
         SharedPreferences pref = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
@@ -138,7 +135,5 @@ public class HomeFragment extends Fragment implements TenkiApi.OnPostEnded{
             aftertomorrow.setBackgroundResource(R.drawable.sunny);
         }
     }
-
-
 
 }

@@ -2,7 +2,6 @@ package com.a_rin.tenki;
 
 
 import android.widget.ImageView;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,4 +20,13 @@ public class Item implements Serializable {
         this.content = content;
     }
 
+    public boolean equals(Object o){
+        if(o == null)
+            return false;
+        else if(o == this)
+            return true;
+        Item i = (Item)o;
+        return this.title.equals(i.title) && this.isThick == i.isThick && this.hasDecoration == i.hasDecoration && this.content.equals(i.content);
+    }
 }
+

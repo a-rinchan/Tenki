@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +26,7 @@ public class InputFragment extends Fragment {
     EditText contentEditText;
     SharedPreferences pref;
 
-   OnClickListener _clickListener;
+    OnClickListener _clickListener;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -47,37 +46,37 @@ public class InputFragment extends Fragment {
         pref = this.getActivity().getSharedPreferences("pref_input",MODE_PRIVATE);
 
         //保存ボタンが押されたとき
-       button.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View v){
-               //読み込み
-               ArrayList<Item> arrayList;
-               SharedPreferences pref = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
-               Gson gson = new Gson();
-               String json = pref.getString("data", "[]");
-               if(json.equals("[]"))
-               {
-                   arrayList = new ArrayList<>();
-               } else {
-                   arrayList = gson.fromJson(json, new TypeToken<ArrayList<Item>>(){}.getType());
-               }
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //読み込み
+                ArrayList<Item> arrayList;
+                SharedPreferences pref = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
+                Gson gson = new Gson();
+                String json = pref.getString("data", "[]");
+                if(json.equals("[]"))
+                {
+                    arrayList = new ArrayList<>();
+                } else {
+                    arrayList = gson.fromJson(json, new TypeToken<ArrayList<Item>>(){}.getType());
+                }
 
-               String titleText = titleEditText.getText().toString();
-               String contentText = contentEditText.getText().toString();
-               Boolean isThick = isThickBoolean.isChecked();
-               Boolean hasDecoration = hasDecorationBoolean.isChecked();
+                String titleText = titleEditText.getText().toString();
+                String contentText = contentEditText.getText().toString();
+                Boolean isThick = isThickBoolean.isChecked();
+                Boolean hasDecoration = hasDecorationBoolean.isChecked();
 
-               Item item = new Item(titleText, isThick, hasDecoration, contentText);
+                Item item = new Item(titleText, isThick, hasDecoration, contentText);
 
-               arrayList.add(item);
+                arrayList.add(item);
 
-               //書き込み
-               pref.edit().putString("data", gson.toJson(arrayList)).apply();
+                //書き込み
+                pref.edit().putString("data", gson.toJson(arrayList)).apply();
 
-               _clickListener.onClick(item);
+                _clickListener.onClick(item);
 
-           }
-       });
+            }
+        });
         return v;
     }
 
@@ -92,7 +91,7 @@ public class InputFragment extends Fragment {
         }
     }
 
-   public interface OnClickListener{
+    public interface OnClickListener{
         void onClick(Item item);
-   }
+    }
 }
