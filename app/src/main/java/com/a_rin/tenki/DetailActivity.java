@@ -88,10 +88,11 @@ public class DetailActivity extends AppCompatActivity {
 
         System.out.println(pref.getString("data", gson.toJson(arrayList)));
 
+        finish();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
-        finish();
     }
 
 }
